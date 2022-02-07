@@ -37,7 +37,48 @@ Built using Spring Boot in Java.
 | endTime    | LocalDateTime | End time of the visit.   |
 | purpose    | String        | Purpose of the visit.    |
 
+### Setup
+
+Run the server: ./mvnw spring-boot:run
+
+Open [http://localhost:8080/visits](http://localhost:8080/visits) to view all visits in the browser.
+
 ## Frontend
 
 Built using ReactJS and Bootstrap.
 
+### Features
+
+![Demo](./docs/dashboard_demo.gif)
+
+#### Monitor Visitor Traffic
+
+- View the current number of visitors to all ibxs.
+
+- View the numbee of visitors to all ibxs today.
+
+#### Viualise Visitor Traffic
+
+- View number of visitors by hour in a graphical format.
+
+#### View all Visits
+
+- Filter and sort all visits by:
+  - Visit ID
+  - Customer ID
+  - Customer Name
+  - IBX ID
+  - IBX Name
+  - Region
+  - Country
+  - Start Time
+  - End Time
+  - Purpose
+
+### Setup
+
+Install dependencies: `npm install`
+
+Run the app in development mode: `npm start`
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
