@@ -1,5 +1,7 @@
 package com.dashboard.model;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -11,12 +13,13 @@ public class Visit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Integer id;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private Integer customerId;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private Integer ibxId;
+
+    @NotNull
+    @ManyToOne(optional = false)
+    private Customer customer;
+    @NotNull
+    @ManyToOne(optional = false)
+    private IBX ibx;
 
     @Basic(optional = false)
     @Column(nullable = false)
@@ -32,9 +35,9 @@ public class Visit {
     public Visit() {
     }
 
-    public Visit(Integer customerId, Integer ibxId, LocalDateTime startTime, LocalDateTime endTime, String purpose) {
-        this.customerId = customerId;
-        this.ibxId = ibxId;
+    public Visit(Customer customer, IBX ibx, LocalDateTime startTime, LocalDateTime endTime, String purpose) {
+        this.customer = customer;
+        this.ibx = ibx;
         this.startTime = startTime;
         this.endTime = endTime;
         this.purpose = purpose;
@@ -48,20 +51,20 @@ public class Visit {
         this.id = id;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public Integer getIbxId() {
-        return ibxId;
+    public IBX getIbx() {
+        return ibx;
     }
 
-    public void setIbxId(Integer ibxId) {
-        this.ibxId = ibxId;
+    public void setIbx(IBX ibx) {
+        this.ibx = ibx;
     }
 
     public LocalDateTime getStartTime() {

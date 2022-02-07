@@ -1,8 +1,8 @@
 package com.dashboard.controller;
 
-import com.dashboard.model.Customer;
 import com.dashboard.model.IBX;
 import com.dashboard.repository.IBXRepository;
+import com.dashboard.repository.VisitRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +21,17 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 @RequestMapping("/ibxs")
 public class IBXController {
 
+    private final VisitRepository visitRepository;
     private final IBXRepository ibxRepository;
     private final Logger logger;
 
-    public IBXController(IBXRepository ibxRepository) {
+    public IBXController(IBXRepository ibxRepository, VisitRepository visitRepository) {
         this.ibxRepository = ibxRepository;
+        this.visitRepository = visitRepository;
         this.logger = Logger.getLogger(IBXController.class.getName());
     }
 
+    @CrossOrigin
     @GetMapping
     public List<IBX> getIbxs(@RequestParam(required = false) Integer id,
                              @RequestParam(required = false) String name,
@@ -50,6 +53,7 @@ public class IBXController {
         return ibxRepository.findAll(example);
     }
 
+    @CrossOrigin
     @GetMapping("/{id}")
     public IBX getIbx(@PathVariable Integer id) {
         logger.log(Level.INFO, "Get ibx with id " + id);
@@ -57,6 +61,7 @@ public class IBXController {
         return ibxRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<IBX> addIbx(@RequestBody IBX ibx) throws URISyntaxException {
         logger.log(Level.INFO, "Post ibx with id " + ibx.getId());
@@ -65,6 +70,7 @@ public class IBXController {
         return ResponseEntity.created(new URI("/ibxs/" + savedIbx.getId())).body(savedIbx);
     }
 
+    @CrossOrigin
     @Transactional
     @PutMapping("/{id}")
     public ResponseEntity<IBX> updateIbx(@PathVariable Integer id, @RequestBody IBX ibx) {
@@ -78,10 +84,13 @@ public class IBXController {
         return ResponseEntity.ok(currIbx);
     }
 
+    @Transactional
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<IBX> deleteIbx(@PathVariable Integer id) {
         logger.log(Level.INFO, "Delete ibx with id " + id);
 
+        visitRepository.deleteByIbxId(id);
         ibxRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
