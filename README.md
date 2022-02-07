@@ -6,7 +6,8 @@ Built using Spring Boot in Java.
 
 ### API
 
-#### [POSTMAN Documentation] (https://documenter.getpostman.com/view/11560439/UVeGrRML)
+#### [POSTMAN Documentation](https://documenter.getpostman.com/view/11560439/UVeGrRML)
+
 
 #### Schema
 
@@ -39,7 +40,7 @@ Built using Spring Boot in Java.
 
 ### Setup
 
-Run the server: ./mvnw spring-boot:run
+Run the server: `./mvnw spring-boot:run`
 
 Open [http://localhost:8080/visits](http://localhost:8080/visits) to view all visits in the browser.
 
